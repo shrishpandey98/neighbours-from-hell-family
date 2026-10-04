@@ -91,8 +91,19 @@ export class Game {
     div.innerHTML = `
       <div class="title-backdrop-art"></div>
 
-      <div class="title-header">
+      <div class="title-top-bar">
         <div class="title-sub-badge">🔥 SLAPSTICK COMEDY PUZZLE 🔥</div>
+        <div class="title-top-controls">
+          <button class="btn-comic btn-yellow btn-fullscreen-top" id="btn-fullscreen-top" title="Go Fullscreen">
+            ⛶ FULLSCREEN
+          </button>
+          <button class="btn-icon-round btn-mute-icon" id="btn-mute-toggle-top" title="Toggle Sound">
+            ${soundManager.isMuted ? '🔇' : '🔊'}
+          </button>
+        </div>
+      </div>
+
+      <div class="title-header">
         <h1 class="title-main-text">NEIGHBOURS FROM HELL</h1>
         <h2 class="title-sub-text">NAINITAL FAMILY EDITION</h2>
       </div>
@@ -123,7 +134,7 @@ export class Game {
         <span>Landscape Mobile Edition • Harmless Family Pranks</span>
         <div style="display: flex; gap: 8px; align-items: center;">
           <button class="btn-icon-round" id="btn-fullscreen-toggle" title="Toggle Fullscreen">⛶</button>
-          <button class="btn-icon-round" id="btn-mute-toggle" title="Toggle Sound">
+          <button class="btn-icon-round btn-mute-icon" id="btn-mute-toggle" title="Toggle Sound">
             ${soundManager.isMuted ? '🔇' : '🔊'}
           </button>
         </div>
@@ -132,14 +143,26 @@ export class Game {
 
     this.ui.appendChild(div);
 
-    div.querySelector('#btn-fullscreen-toggle').addEventListener('click', () => {
+    const handleFs = () => {
       soundManager.playClick();
       toggleFullscreen();
-    });
+    };
+
+    const fsTop = div.querySelector('#btn-fullscreen-top');
+    if (fsTop) fsTop.addEventListener('click', handleFs);
+
+    const fsFooter = div.querySelector('#btn-fullscreen-toggle');
+    if (fsFooter) fsFooter.addEventListener('click', handleFs);
 
     div.querySelector('#btn-play').addEventListener('click', () => {
       soundManager.playClick();
       soundManager.startBGM();
+
+      // Automatically trigger fullscreen on Play if not already active
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        toggleFullscreen();
+      }
+
       if (!storage.hasCreatedPlayer()) {
         this.setupScreen(GAME_SCREEN.PLAYER_CREATION);
       } else {
@@ -157,10 +180,18 @@ export class Game {
       this.setupScreen(GAME_SCREEN.PLAYER_CREATION);
     });
 
-    div.querySelector('#btn-mute-toggle').addEventListener('click', (e) => {
+    const handleMute = () => {
       const muted = soundManager.toggleMute();
-      e.currentTarget.textContent = muted ? '🔇' : '🔊';
-    });
+      div.querySelectorAll('.btn-mute-icon').forEach(btn => {
+        btn.textContent = muted ? '🔇' : '🔊';
+      });
+    };
+
+    const muteTop = div.querySelector('#btn-mute-toggle-top');
+    if (muteTop) muteTop.addEventListener('click', handleMute);
+
+    const muteFooter = div.querySelector('#btn-mute-toggle');
+    if (muteFooter) muteFooter.addEventListener('click', handleMute);
   }
 
   showHowToPlayModal() {
@@ -566,6 +597,7 @@ export class Game {
               </div>
             </div>
 
+            <button class="btn-icon-round" id="btn-gameplay-fullscreen" title="Toggle Fullscreen">⛶</button>
             <button class="btn-icon-round" id="btn-pause-game">⏸️</button>
           </div>
         </div>
@@ -638,6 +670,15 @@ export class Game {
         this.updateInventoryUI();
       });
     });
+
+    // Fullscreen button
+    const fsGameBtn = document.getElementById('btn-gameplay-fullscreen');
+    if (fsGameBtn) {
+      fsGameBtn.addEventListener('click', () => {
+        soundManager.playClick();
+        toggleFullscreen();
+      });
+    }
 
     // Pause button
     document.getElementById('btn-pause-game').addEventListener('click', () => {

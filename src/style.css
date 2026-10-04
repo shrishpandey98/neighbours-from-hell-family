@@ -57,6 +57,8 @@ html, body {
   height: min(100vh, calc(100vw * 9 / 16));
   width: min(100dvw, calc(100dvh * 16 / 9));
   height: min(100dvh, calc(100dvw * 9 / 16));
+  max-width: 100dvw;
+  max-height: 100dvh;
   background: #111827;
   overflow: hidden;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
@@ -285,9 +287,35 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  padding: 14px 20px;
   background: radial-gradient(circle at 50% 30%, #312e81 0%, #1e1b4b 60%, #090d16 100%);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.title-top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 15;
+  margin-bottom: 2px;
+}
+
+.title-top-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-fullscreen-top {
+  font-family: var(--font-comic);
+  font-size: 13px !important;
+  font-weight: 800;
+  padding: 6px 14px !important;
+  border-radius: 12px !important;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 0 #0f172a;
 }
 
 .title-backdrop-art {
@@ -308,7 +336,7 @@ html, body {
 .title-header {
   position: relative;
   text-align: center;
-  margin-top: 4px;
+  margin: 2px 0;
   z-index: 2;
 }
 
@@ -1512,6 +1540,123 @@ html, body {
     border-radius: 12px;
     min-width: 112px;
     box-shadow: 0 3px 0 #0f172a;
+  }
+}
+
+/* Compact Mobile Landscape Title & Menu Rules */
+@media (max-height: 440px) {
+  .title-screen-container {
+    padding: 6px 14px;
+    justify-content: space-around;
+  }
+  .title-top-controls {
+    top: 6px;
+    right: 8px;
+    gap: 6px;
+  }
+  .btn-fullscreen-top {
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+  }
+  .title-header {
+    margin: 1px 0;
+  }
+  .title-sub-badge {
+    font-size: 9px;
+    padding: 1px 8px;
+    margin-bottom: 0px;
+  }
+  .title-main-text {
+    font-size: clamp(17px, 5.8vh, 24px);
+    line-height: 1.05;
+  }
+  .title-sub-text {
+    font-size: clamp(10px, 3.2vh, 14px);
+    margin-top: -2px;
+  }
+  .title-center-scene {
+    margin: 2px 0;
+  }
+  .title-hero-preview {
+    padding: 3px 12px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+  .hero-avatar-bubble {
+    width: 40px;
+    height: 40px;
+  }
+  .hero-info-text .welcome-lbl {
+    font-size: 9px;
+  }
+  .hero-info-text .player-name-lbl {
+    font-size: 15px;
+  }
+  .btn-change-player {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+  .title-actions {
+    gap: 10px;
+    margin-bottom: 2px;
+  }
+  .title-btn-play {
+    font-size: 16px !important;
+    padding: 8px 24px !important;
+  }
+  .btn-comic#btn-how-to-play {
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+  }
+  .title-footer {
+    font-size: 10px;
+    padding: 0 4px;
+  }
+}
+
+@media (max-height: 330px) {
+  .title-screen-container {
+    padding: 4px 8px;
+    justify-content: space-between;
+  }
+  .title-header {
+    margin: 0;
+  }
+  .title-sub-badge {
+    display: none;
+  }
+  .title-main-text {
+    font-size: clamp(16px, 5.8vh, 22px);
+  }
+  .title-sub-text {
+    font-size: clamp(10px, 3.2vh, 13px);
+  }
+  .title-hero-preview {
+    padding: 2px 8px;
+    gap: 6px;
+  }
+  .hero-avatar-bubble {
+    width: 32px;
+    height: 32px;
+  }
+  .hero-info-text .player-name-lbl {
+    font-size: 13px;
+  }
+  .title-actions {
+    gap: 8px;
+    margin-bottom: 0;
+  }
+  .title-btn-play {
+    font-size: 14px !important;
+    padding: 6px 18px !important;
+  }
+  .btn-comic#btn-how-to-play {
+    font-size: 12px !important;
+    padding: 6px 14px !important;
+  }
+  .title-footer {
+    display: none; /* In ultra-short height, top-controls provide fullscreen & sound, preventing any clipping */
   }
 }
 
