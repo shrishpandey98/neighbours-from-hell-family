@@ -1,4 +1,4 @@
-# Neighbours from Hell: Family Edition 😈🏡
+# Neighbours from Hell: Nainital Family Edition 😈🏡
 
 A complete, polished, and fully playable mobile-web stealth/prank puzzle game inspired by the classic **“Neighbours from Hell”** gameplay loop.
 

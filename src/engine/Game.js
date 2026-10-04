@@ -94,7 +94,7 @@ export class Game {
       <div class="title-header">
         <div class="title-sub-badge">🔥 SLAPSTICK COMEDY PUZZLE 🔥</div>
         <h1 class="title-main-text">NEIGHBOURS FROM HELL</h1>
-        <h2 class="title-sub-text">FAMILY EDITION</h2>
+        <h2 class="title-sub-text">NAINITAL FAMILY EDITION</h2>
       </div>
 
       <div class="title-center-scene">
