@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#1e1b4b" />
+  <title>Neighbours from Hell: Family Edition 😈</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  
+  <!-- Modern energetic cartoon & comic fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="no-select">
+
+  <!-- Force Landscape Mobile Notification -->
+  <div id="portrait-lock" class="portrait-lock-overlay hidden">
+    <div class="rotate-card">
+      <div class="phone-rotate-anim">
+        <div class="phone-icon">
+          <div class="phone-screen">
+            <span class="phone-face">😜</span>
+          </div>
+        </div>
+        <div class="rotate-arrow">⤹</div>
+      </div>
+      <h2>TURN YOUR PHONE SIDEWAYS!</h2>
+      <p>Turn your phone sideways to enter the family chaos 😂</p>
+      <div class="badge-tag">Landscape Mode Only • 1280 × 720</div>
+    </div>
+  </div>
+
+  <!-- Main Game Stage Container (Fixed 16:9 aspect ratio scaling) -->
+  <div id="game-container" class="game-container">
+    <canvas id="game-canvas" width="1280" height="720"></canvas>
+    
+    <!-- DOM UI Layer Overlay for High Performance Tactile Interface -->
+    <div id="ui-layer" class="ui-layer">
+      <!-- Views will be mounted and switched cleanly here -->
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

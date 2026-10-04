@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#f59e0b" stroke="#b45309" stroke-width="4"/>
+  <!-- Mischievous devil horns -->
+  <path d="M 22 28 C 15 15, 20 8, 30 18 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+  <path d="M 78 28 C 85 15, 80 8, 70 18 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+  <!-- Eyes with scheming wink -->
+  <ellipse cx="36" cy="45" rx="6" ry="8" fill="#1e293b"/>
+  <circle cx="38" cy="43" r="2.5" fill="#ffffff"/>
+  <path d="M 60 45 Q 67 40 74 45" stroke="#1e293b" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Sneaky grin -->
+  <path d="M 32 62 Q 50 82 68 62" stroke="#1e293b" stroke-width="4" stroke-linecap="round" fill="#ffffff"/>
+</svg>
