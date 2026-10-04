@@ -1,5 +1,3 @@
-// Main Game Orchestrator: State Machine, UI Switching, Gameplay Loop & Scoring
-
 import { AVATARS } from '../config/avatars.js';
 import { HOUSES } from '../config/houses.js';
 import { LEVELS } from '../config/levels.js';
@@ -9,6 +7,7 @@ import { InputManager } from './Input.js';
 import { Renderer } from './Renderer.js';
 import { Player } from '../entities/Player.js';
 import { Resident, RESIDENT_STATE } from '../entities/Resident.js';
+import { toggleFullscreen } from '../main.js';
 
 export const GAME_SCREEN = {
   TITLE: 'TITLE',
@@ -122,13 +121,21 @@ export class Game {
 
       <div class="title-footer">
         <span>Landscape Mobile Edition • Harmless Family Pranks</span>
-        <button class="btn-icon-round" id="btn-mute-toggle" title="Toggle Sound">
-          ${soundManager.isMuted ? '🔇' : '🔊'}
-        </button>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button class="btn-icon-round" id="btn-fullscreen-toggle" title="Toggle Fullscreen">⛶</button>
+          <button class="btn-icon-round" id="btn-mute-toggle" title="Toggle Sound">
+            ${soundManager.isMuted ? '🔇' : '🔊'}
+          </button>
+        </div>
       </div>
     `;
 
     this.ui.appendChild(div);
+
+    div.querySelector('#btn-fullscreen-toggle').addEventListener('click', () => {
+      soundManager.playClick();
+      toggleFullscreen();
+    });
 
     div.querySelector('#btn-play').addEventListener('click', () => {
       soundManager.playClick();
