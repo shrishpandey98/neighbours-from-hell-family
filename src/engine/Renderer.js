@@ -190,17 +190,20 @@ export class Renderer {
       ctx.strokeRect(room.x, room.y, room.width, room.height);
 
       // Room Name Sign
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+      ctx.font = 'bold 16px sans-serif';
+      const nameTxt = room.name.toUpperCase();
+      const txtMetrics = ctx.measureText(nameTxt);
+      const signW = Math.max(170, txtMetrics.width + 32);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
       ctx.beginPath();
-      ctx.roundRect(room.x + 14, room.y + 14, 150, 24, 8);
+      ctx.roundRect(room.x + 14, room.y + 14, signW, 32, 8);
       ctx.fill();
       ctx.strokeStyle = house.accentColor || '#f97316';
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2.5;
       ctx.stroke();
 
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillText(room.name.toUpperCase(), room.x + 24, room.y + 30);
+      ctx.fillText(nameTxt, room.x + 22, room.y + 36);
     }
   }
 
@@ -446,13 +449,18 @@ export class Renderer {
         ctx.stroke();
 
         // Stairs Sign
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
         ctx.beginPath();
-        ctx.roundRect(d.x - 28, d.y - 105, 56, 18, 6);
+        ctx.roundRect(d.x - 40, d.y - 114, 80, 24, 7);
         ctx.fill();
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 2;
+        ctx.stroke();
         ctx.fillStyle = '#facc15';
-        ctx.font = 'bold 10px sans-serif';
-        ctx.fillText('STAIRS ↕', d.x - 22, d.y - 92);
+        ctx.font = 'bold 14px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('STAIRS ↕', d.x, d.y - 97);
+        ctx.textAlign = 'left';
       }
     }
   }
@@ -502,14 +510,17 @@ export class Renderer {
 
       // Hiding prompt tag
       if (isNearby || isPlayerInside) {
-        ctx.fillStyle = isPlayerInside ? '#22c55e' : '#a855f7';
+        ctx.fillStyle = isPlayerInside ? '#16a34a' : '#9333ea';
         ctx.beginPath();
-        ctx.roundRect(spot.x + spot.width / 2 - 38, spot.y - 24, 76, 20, 6);
+        ctx.roundRect(spot.x + spot.width / 2 - 58, spot.y - 36, 116, 30, 8);
         ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 10px sans-serif';
+        ctx.font = 'bold 15px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(isPlayerInside ? 'HIDDEN 🤫' : 'HIDE [H]', spot.x + spot.width / 2, spot.y - 10);
+        ctx.fillText(isPlayerInside ? 'HIDDEN 🤫' : 'HIDE [H]', spot.x + spot.width / 2, spot.y - 16);
         ctx.textAlign = 'left';
       }
     }
@@ -520,24 +531,29 @@ export class Renderer {
     for (const item of levelItems) {
       if (item.pickedUp) continue;
       // Golden glow ring
-      ctx.fillStyle = 'rgba(250, 204, 21, 0.35)';
+      ctx.fillStyle = 'rgba(250, 204, 21, 0.45)';
       ctx.beginPath();
-      ctx.arc(item.x, item.y - 14, 24, 0, Math.PI * 2);
+      ctx.arc(item.x, item.y - 16, 28, 0, Math.PI * 2);
       ctx.fill();
 
       // Emoji icon
-      ctx.font = '26px sans-serif';
+      ctx.font = '32px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(item.icon, item.x, item.y - 2);
 
       // Name label badge
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+      ctx.font = 'bold 14px sans-serif';
+      const itmW = ctx.measureText(item.name).width;
+      const badgeW = Math.max(96, itmW + 24);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
       ctx.beginPath();
-      ctx.roundRect(item.x - 45, item.y - 42, 90, 18, 5);
+      ctx.roundRect(item.x - badgeW / 2, item.y - 54, badgeW, 26, 7);
       ctx.fill();
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 2;
+      ctx.stroke();
       ctx.fillStyle = '#facc15';
-      ctx.font = 'bold 10px sans-serif';
-      ctx.fillText(item.name, item.x, item.y - 29);
+      ctx.fillText(item.name, item.x, item.y - 36);
       ctx.textAlign = 'left';
     }
 
@@ -546,24 +562,30 @@ export class Renderer {
       const isNearby = player.nearbyObject && player.nearbyObject.id === obj.id;
 
       // Glow halo
-      ctx.fillStyle = obj.isTampered ? 'rgba(34, 197, 94, 0.4)' : (isNearby ? 'rgba(249, 115, 22, 0.4)' : 'rgba(255, 255, 255, 0.18)');
+      ctx.fillStyle = obj.isTampered ? 'rgba(34, 197, 94, 0.45)' : (isNearby ? 'rgba(249, 115, 22, 0.5)' : 'rgba(255, 255, 255, 0.22)');
       ctx.beginPath();
-      ctx.arc(obj.x, obj.y - 16, 28, 0, Math.PI * 2);
+      ctx.arc(obj.x, obj.y - 18, 34, 0, Math.PI * 2);
       ctx.fill();
 
       // Object Icon
-      ctx.font = '30px sans-serif';
+      ctx.font = '36px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(obj.icon, obj.x, obj.y);
+      ctx.fillText(obj.icon, obj.x, obj.y + 2);
 
       // Status pill
-      ctx.fillStyle = obj.isTampered ? '#16a34a' : 'rgba(15, 23, 42, 0.9)';
+      ctx.font = 'bold 15px sans-serif';
+      const labelText = obj.isTampered ? 'TAMPERED! 😈' : obj.name;
+      const txtW = ctx.measureText(labelText).width;
+      const pillW = Math.max(106, txtW + 26);
+      ctx.fillStyle = obj.isTampered ? '#15803d' : 'rgba(15, 23, 42, 0.94)';
       ctx.beginPath();
-      ctx.roundRect(obj.x - 55, obj.y - 48, 110, 20, 6);
+      ctx.roundRect(obj.x - pillW / 2, obj.y - 60, pillW, 28, 8);
       ctx.fill();
-      ctx.fillStyle = obj.isTampered ? '#ffffff' : (isNearby ? '#fb923c' : '#f1f5f9');
-      ctx.font = 'bold 10px sans-serif';
-      ctx.fillText(obj.isTampered ? 'TAMPERED! 😈' : obj.name, obj.x, obj.y - 34);
+      ctx.strokeStyle = obj.isTampered ? '#4ade80' : (isNearby ? '#f97316' : '#64748b');
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = obj.isTampered ? '#ffffff' : (isNearby ? '#fb923c' : '#f8fafc');
+      ctx.fillText(labelText, obj.x, obj.y - 41);
       ctx.textAlign = 'left';
     }
   }
@@ -754,12 +776,15 @@ export class Renderer {
     if (resident.suspicion > 30) {
       ctx.fillStyle = resident.suspicion > 70 ? '#ef4444' : '#eab308';
       ctx.beginPath();
-      ctx.arc(rx, ry - resident.height - 12, 12, 0, Math.PI * 2);
+      ctx.arc(rx, ry - resident.height - 16, 16, 0, Math.PI * 2);
       ctx.fill();
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2;
+      ctx.stroke();
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 15px sans-serif';
+      ctx.font = 'bold 20px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(resident.suspicion > 70 ? '!' : '?', rx, ry - resident.height - 6);
+      ctx.fillText(resident.suspicion > 70 ? '!' : '?', rx, ry - resident.height - 9);
       ctx.textAlign = 'left';
     }
 
@@ -768,30 +793,35 @@ export class Renderer {
 
   drawSpeechBubble(ctx, x, y, text, bgColor, textColor) {
     ctx.save();
-    ctx.font = 'bold 13px sans-serif';
+    ctx.font = 'bold 18px sans-serif';
     const textWidth = ctx.measureText(text).width;
-    const pad = 14;
-    const bw = Math.min(300, textWidth + pad * 2);
-    const bh = 36;
+    const pad = 20;
+    const bw = Math.min(420, textWidth + pad * 2);
+    const bh = 50;
 
-    const bx = Math.max(12, Math.min(this.width - bw - 12, x - bw / 2));
-    const by = Math.max(10, y - bh);
+    let bx = Math.max(16, Math.min(this.width - bw - 16, x - bw / 2));
+    let by = Math.max(14, y - bh);
+
+    // Keep clear of the virtual joystick zone (bottom-left area)
+    if (by > 480 && bx < 150) {
+      bx = 150;
+    }
 
     // Bubble
     ctx.fillStyle = bgColor;
     ctx.strokeStyle = '#0f172a';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 3.5;
     ctx.beginPath();
-    ctx.roundRect(bx, by, bw, bh, 10);
+    ctx.roundRect(bx, by, bw, bh, 14);
     ctx.fill();
     ctx.stroke();
 
     // Tail
     ctx.fillStyle = bgColor;
     ctx.beginPath();
-    ctx.moveTo(x - 6, by + bh);
-    ctx.lineTo(x + 6, by + bh);
-    ctx.lineTo(x, by + bh + 9);
+    ctx.moveTo(x - 10, by + bh);
+    ctx.lineTo(x + 10, by + bh);
+    ctx.lineTo(x, by + bh + 12);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
@@ -800,7 +830,7 @@ export class Renderer {
     ctx.fillStyle = textColor;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(text, bx + bw / 2, by + bh / 2, bw - 16);
+    ctx.fillText(text, bx + bw / 2, by + bh / 2, bw - 24);
     ctx.restore();
   }
 
@@ -842,10 +872,10 @@ export class Renderer {
     ctx.fillRect(relX - 6, relY - 8, 12, 14);
 
     // Live Room header banner
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.fillRect(0, 0, w, 14);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.fillRect(0, 0, w, 18);
     ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 9px sans-serif';
-    ctx.fillText(room.name.toUpperCase(), 6, 10);
+    ctx.font = 'bold 12px sans-serif';
+    ctx.fillText(room.name.toUpperCase(), 6, 13);
   }
 }
