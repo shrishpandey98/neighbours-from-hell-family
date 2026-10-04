@@ -5,8 +5,8 @@ export const HOUSES = [
   // =========================================================
   {
     id: 'mama',
-    name: 'Mama Ji',
-    fullName: 'Ramesh Mama',
+    name: 'Pappu Mama',
+    fullName: 'Pappu Mama',
     gender: 'Male',
     title: 'The Chai & Cricket Enthusiast',
     tagline: 'Loves his morning ginger tea, newspapers, and afternoon cricket matches.',
